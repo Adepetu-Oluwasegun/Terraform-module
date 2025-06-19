@@ -32,3 +32,7 @@ module "gateway" {
 }
 
 # create security groups
+module "security_group" {
+  source = "../modules/Security groups"
+  vpc_id = module.vpc.vpc_id
+}
