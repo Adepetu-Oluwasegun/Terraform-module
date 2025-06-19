@@ -37,8 +37,15 @@ module "security_group" {
   vpc_id = module.vpc.vpc_id
 }
 
-# create iam
+# create ecs task execution role
 module "ecs_task_execution_role" {
   source       = "../modules/ecs-task-execution-role"
   project_name = module.vpc.project_name
+}
+
+# creat ssl cerificate
+module "acm" {
+  source = "../modules/acm"
+  domain_name = var.domain_name
+  alternative_name = var.alternative_name
 }
