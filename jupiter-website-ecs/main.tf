@@ -45,7 +45,7 @@ module "ecs_task_execution_role" {
 
 # creat ssl cerificate
 module "acm" {
-  source = "../modules/acm"
-  domain_name = var.domain_name
+  source           = "../modules/acm"
+  domain_name      = var.domain_name
   alternative_name = var.alternative_name
 }
