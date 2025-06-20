@@ -3,7 +3,7 @@ output "alb_target_group_arn" {
 }
 
 output "application_load_balancer_dns_name" {
-  value = aws_lb.application_load_balancer.dns.name
+  value = aws_lb.application_load_balancer.dns_name
 }
 
 output "application_load_balancer_zone" {
