@@ -38,10 +38,11 @@ module "security_group" {
 }
 
 # create ecs task execution role
-module "ecs_task_execution_role" {
-  source       = "../modules/ecs-task-execution-role"
-  project_name = module.vpc.project_name
-}
+# module "ecs_task_execution_role" {
+#   source       = "../modules/ecs-task-execution-role"
+#   project_name = module.vpc.project_name
+#   ecs_task_execution_role_arn = var.ecs_task_execution_role_arn
+# }
 
 # create ssl cerificate
 module "acm" {
@@ -49,6 +50,8 @@ module "acm" {
   domain_name      = var.domain_name
   alternative_name = var.alternative_name
   hosted_zone_id   = var.hosted_zone_id
+  application_load_balancer_dns_name = module.Alb.application_load_balancer_dns_name
+  application_load_balancer_zone_id = module.Alb.application_load_balancer_zone_id
 }
 
 # create App load balancer 
@@ -62,9 +65,14 @@ module "Alb" {
   vpc_id                = module.vpc.vpc_id
 }
 
-# create Ecs
+# create ecs
 module "ecs" {
   source          = "../modules/ecs"
   project_name    = module.vpc.project_name
   container_image = var.container_image
+  execution_role_arn = var.execution_role_arn
+  private_app_subnet_az1_id = module.vpc.private_app_subnet_az1_id
+  private_app_subnet_az2_id = module.vpc.private_app_subnet_az2_id
+  ecs_security_group_id     = module.security_group.ecs_security_group_id
+  target_group_arn = module.Alb.target_group_arn
 }
