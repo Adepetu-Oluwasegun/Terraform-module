@@ -48,6 +48,7 @@ module "acm" {
   source           = "../modules/acm"
   domain_name      = var.domain_name
   alternative_name = var.alternative_name
+  hosted_zone_id = var.hosted_zone_id
 }
 
 # create App load balancer 
