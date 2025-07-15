@@ -82,7 +82,7 @@ resource "aws_ecs_service" "ecs_service" {
 
   # vpc and security groups
   network_configuration {
-    subnets                 = []
+    subnets                 = [aws_subnet.private_app_subnet_az1.id, aws_subnet.private_app_subnet_az2.id]
     security_groups         = [aws_security_group.ecs_security_group.id] 
     assign_public_ip        = false
   }
