@@ -60,3 +60,10 @@ module "Alb" {
   alb_security_group_id = module.security_group.alb_security_group_id
   vpc_id                = module.vpc.vpc_id
 }
+
+# create Ecs
+module "ecs" {
+  source = "../modules/ecs"
+  project_name = module.vpc.project_name
+  container_image = var.container_image
+}
