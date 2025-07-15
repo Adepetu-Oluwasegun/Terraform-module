@@ -48,7 +48,7 @@ module "acm" {
   source           = "../modules/acm"
   domain_name      = var.domain_name
   alternative_name = var.alternative_name
-  hosted_zone_id = var.hosted_zone_id
+  hosted_zone_id   = var.hosted_zone_id
 }
 
 # create App load balancer 
@@ -64,7 +64,7 @@ module "Alb" {
 
 # create Ecs
 module "ecs" {
-  source = "../modules/ecs"
-  project_name = module.vpc.project_name
+  source          = "../modules/ecs"
+  project_name    = module.vpc.project_name
   container_image = var.container_image
 }
