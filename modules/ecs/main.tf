@@ -34,7 +34,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   container_definitions     = jsonencode([
     {
       name                  = "${var.project_name}-container"
-      image                 = 
+      image                 = var.container_image
       essential             = true
 
       portMappings          = [
@@ -56,9 +56,9 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
       logConfiguration = {
         logDriver   = "awslogs",
         options     = {
-          "awslogs-group"          = 
-           "awslogs-region"        = 
-          "awslogs-stream-prefix"  = 
+          "awslogs-group"          = aws_cloudwatch_log_group.log_group.name,
+           "awslogs-region"        = "us-east-1",
+          "awslogs-stream-prefix"  = "ecs"
         }
       }
     }
@@ -83,7 +83,7 @@ resource "aws_ecs_service" "ecs_service" {
   # vpc and security groups
   network_configuration {
     subnets                 = []
-    security_groups         = [] 
+    security_groups         = [aws_security_group.ecs_security_group.id] 
     assign_public_ip        = false
   }
 
