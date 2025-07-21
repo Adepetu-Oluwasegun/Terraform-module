@@ -11,3 +11,4 @@ variable "domain_name" {}
 variable "alternative_name" {}
 variable "container_image" {}
 variable "hosted_zone_id" {}
+variable "execution_role_arn" {}
