@@ -28,6 +28,17 @@ resource "aws_route53_record" "route53_record" {
   zone_id         = var.hosted_zone_id
 }
 
+resource "aws_route53_record" "app_domain" {
+  zone_id = var.hosted_zone_id
+  name    = var.domain_name  
+  type    = "A"
+
+  alias {
+    name                   = var.application_load_balancer_dns_name
+    zone_id                = var.application_load_balancer_zone_id
+    evaluate_target_health = true
+    }
+  }
 # validate acm certificates
 resource "aws_acm_certificate_validation" "acm_certificate_validation" {
   certificate_arn         = aws_acm_certificate.acm_certificate.arn
