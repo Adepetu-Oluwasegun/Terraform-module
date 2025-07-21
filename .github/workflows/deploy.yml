@@ -1,0 +1,40 @@
+name: Deploy to AWS ECS via terraform
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  terraform-deploy:
+    name: Terraform Deploy
+    runs-on: ubuntu-latest
+
+    permissions: 
+      id-token: write
+      contents: read
+
+    steps:
+      # checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials using access keys
+        uses: aws-actions/configure-aws-credentials@v4
+        with: 
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: setup Terraform
+        run: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+    
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
