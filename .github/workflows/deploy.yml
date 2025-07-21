@@ -28,7 +28,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: setup Terraform
-        run: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init
