@@ -4,15 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  destroy:
+  terraform-destroy:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./jupiter-website-ecs
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
+      uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.6.0
 
