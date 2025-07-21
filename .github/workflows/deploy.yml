@@ -32,9 +32,12 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./jupiter-website-ecs
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: ./jupiter-website-ecs
     
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+        working-directory: ./jupiter-website-ecs
