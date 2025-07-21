@@ -70,7 +70,6 @@ module "ecs" {
   source          = "../modules/ecs"
   project_name    = module.vpc.project_name
   container_image = var.container_image
-  execution_role_arn = var.execution_role_arn
   private_app_subnet_az1_id = module.vpc.private_app_subnet_az1_id
   private_app_subnet_az2_id = module.vpc.private_app_subnet_az2_id
   ecs_security_group_id     = module.security_group.ecs_security_group_id
